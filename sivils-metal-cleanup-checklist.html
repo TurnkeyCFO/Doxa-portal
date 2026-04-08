@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sivils Metal — Books Cleanup Checklist</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --tk-navy:       #00263A;
+    --tk-navy-mid:   #003A56;
+    --tk-navy-soft:  #0A4A6A;
+    --tk-green:        #00C85A;
+    --tk-green-bright: #05DD69;
+    --tk-green-soft:   #5DD870;
+    --tk-ice:       #DAE1E9;
+    --tk-ice-light: #EEF1F5;
+    --tk-bg-light:  #F2F5F8;
+    --tk-bg-soft:   #EEF0F1;
+    --tk-white:     #FFFFFF;
+    --tk-text:       #0D1F2D;
+    --tk-text-soft:  #36576A;
+    --tk-text-muted: #7A909F;
+    --tk-border:       rgba(0, 38, 58, 0.10);
+    --tk-success: #00C85A;
+    --tk-warning: #E8920A;
+    --tk-danger:  #E03A52;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: linear-gradient(160deg, var(--tk-bg-light) 0%, #ffffff 60%, var(--tk-ice-light) 100%);
+    color: var(--tk-text);
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, var(--tk-navy) 0%, var(--tk-navy-mid) 60%, var(--tk-navy-soft) 100%);
+    padding: 48px 40px 52px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.15;
+    animation: drift 12s ease-in-out infinite alternate;
+  }
+  .orb1 { width: 340px; height: 340px; background: var(--tk-green); top: -80px; right: -60px; }
+  .orb2 { width: 260px; height: 260px; background: var(--tk-navy-soft); bottom: -100px; left: -60px; animation-delay: 3s; }
+  @keyframes drift { from { transform: translate(0,0); } to { transform: translate(20px, 18px); } }
+
+  .hero-inner { position: relative; max-width: 1100px; margin: 0 auto; }
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tk-green);
+    margin-bottom: 10px;
+  }
+  .hero-title {
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 800;
+    color: var(--tk-white);
+    line-height: 1.15;
+    margin-bottom: 10px;
+    background: linear-gradient(90deg, #ffffff 0%, var(--tk-green-soft) 50%, #ffffff 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 5s linear infinite;
+  }
+  @keyframes shimmer { to { background-position: 200% center; } }
+  .hero-sub {
+    font-size: 14px;
+    color: rgba(218,225,233,0.72);
+    font-weight: 400;
+    max-width: 560px;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 20px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .meta-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(218,225,233,0.18);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--tk-ice);
+    letter-spacing: 0.03em;
+  }
+  .meta-pill .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--tk-green);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  /* ── PROGRESS BANNER ── */
+  .progress-banner {
+    max-width: 1100px;
+    margin: 32px auto 0;
+    padding: 0 24px;
+  }
+  .progress-card {
+    background: rgba(255,255,255,0.92);
+    border: 1px solid rgba(0,38,58,0.08);
+    border-radius: 20px;
+    box-shadow: 0 12px 32px rgba(7,47,69,0.09);
+    padding: 24px 32px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .progress-stat { text-align: center; min-width: 80px; }
+  .progress-stat .val {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--tk-navy);
+    line-height: 1;
+  }
+  .progress-stat .lbl {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--tk-text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+  .progress-divider { width: 1px; height: 48px; background: var(--tk-border); }
+  .progress-bar-wrap { flex: 1; min-width: 200px; }
+  .progress-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--tk-text-soft);
+    margin-bottom: 8px;
+  }
+  .progress-track {
+    height: 10px;
+    background: var(--tk-bg-light);
+    border-radius: 999px;
+    overflow: hidden;
+    border: 1px solid var(--tk-border);
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--tk-green), var(--tk-green-bright));
+    border-radius: 999px;
+    transition: width 0.6s ease;
+  }
+
+  /* ── MAIN ── */
+  .main { max-width: 1100px; margin: 32px auto 0; padding: 0 24px; }
+
+  .section-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--tk-text-muted);
+    margin-bottom: 16px;
+  }
+
+  /* ── ITEMS ── */
+  .checklist { display: flex; flex-direction: column; gap: 14px; }
+
+  .item-card {
+    background: rgba(255,255,255,0.88);
+    border: 1px solid rgba(0,38,58,0.08);
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(7,47,69,0.07);
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: 28px 1fr auto;
+    gap: 16px;
+    align-items: start;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    cursor: pointer;
+  }
+  .item-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 36px rgba(7,47,69,0.12);
+  }
+  .item-card.completed {
+    opacity: 0.7;
+    border-color: rgba(0,200,90,0.25);
+    background: rgba(0,200,90,0.04);
+  }
+  .item-card.completed .item-title { text-decoration: line-through; color: var(--tk-text-muted); }
+
+  /* Checkbox */
+  .checkbox {
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    border: 2px solid var(--tk-ice);
+    background: var(--tk-white);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: all 0.2s ease;
+  }
+  .item-card.completed .checkbox {
+    background: var(--tk-green);
+    border-color: var(--tk-green);
+  }
+  .checkbox svg { display: none; }
+  .item-card.completed .checkbox svg { display: block; }
+
+  /* Content */
+  .item-content {}
+  .item-top {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap;
+  }
+  .item-num {
+    font-size: 11px; font-weight: 700;
+    color: var(--tk-text-muted);
+    letter-spacing: 0.06em;
+    min-width: 22px;
+  }
+  .item-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--tk-navy);
+    line-height: 1.3;
+  }
+  .item-req {
+    font-size: 13px;
+    color: var(--tk-text-soft);
+    line-height: 1.5;
+    margin-top: 2px;
+  }
+  .item-remark {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    margin-top: 8px;
+    background: rgba(232,146,10,0.07);
+    border-left: 3px solid var(--tk-warning);
+    border-radius: 0 6px 6px 0;
+    padding: 6px 10px;
+    font-size: 12px;
+    color: #7a4e00;
+    font-weight: 500;
+  }
+
+  /* Badge */
+  .badge {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .badge-never { background: rgba(224,58,82,0.1); color: var(--tk-danger); border: 1px solid rgba(224,58,82,0.2); }
+  .badge-done  { background: rgba(0,200,90,0.12); color: #007a35; border: 1px solid rgba(0,200,90,0.25); }
+  .badge-na    { background: rgba(122,144,159,0.12); color: var(--tk-text-muted); border: 1px solid rgba(122,144,159,0.2); }
+
+  /* ── CATEGORY DIVIDER ── */
+  .cat-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 32px 0 14px;
+  }
+  .cat-icon {
+    width: 34px; height: 34px;
+    background: var(--tk-navy);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .cat-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--tk-navy);
+    letter-spacing: 0.04em;
+  }
+  .cat-line { flex: 1; height: 1px; background: var(--tk-border); }
+
+  /* ── NOTE CARD ── */
+  .note-card {
+    background: rgba(0,38,58,0.03);
+    border: 1px dashed rgba(0,38,58,0.14);
+    border-radius: 14px;
+    padding: 18px 22px;
+    margin-top: 32px;
+    font-size: 13px;
+    color: var(--tk-text-soft);
+    line-height: 1.6;
+  }
+  .note-card strong { color: var(--tk-navy); }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    margin-top: 48px;
+    font-size: 11px;
+    color: var(--tk-text-muted);
+    letter-spacing: 0.06em;
+  }
+  .footer strong { color: var(--tk-navy-soft); font-weight: 700; }
+
+  @media (max-width: 640px) {
+    .hero { padding: 36px 20px 40px; }
+    .progress-card { padding: 18px 20px; gap: 20px; }
+    .main { padding: 0 14px; }
+    .item-card { padding: 16px 16px; grid-template-columns: 24px 1fr; }
+    .item-card .badge { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">TurnkeyCFO · Client Action Checklist</div>
+    <div class="hero-title">Sivils Metal — Books Cleanup</div>
+    <div class="hero-sub">Items below are required to complete your 2025–2026 reconciliation and year-end review. Please check off each item as you gather and send.</div>
+    <div class="hero-meta">
+      <div class="meta-pill"><span class="dot"></span> 9 Items Required</div>
+      <div class="meta-pill">Jan 2025 – Mar 2026 Scope</div>
+      <div class="meta-pill">FY 2024 Tax Filing</div>
+    </div>
+  </div>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-banner">
+  <div class="progress-card">
+    <div class="progress-stat">
+      <div class="val" id="complete-count">0</div>
+      <div class="lbl">Complete</div>
+    </div>
+    <div class="progress-divider"></div>
+    <div class="progress-stat">
+      <div class="val" id="remaining-count">9</div>
+      <div class="lbl">Remaining</div>
+    </div>
+    <div class="progress-divider"></div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-label">
+        <span>Overall Progress</span>
+        <span id="pct-label">0%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- TAX -->
+  <div class="cat-header">
+    <div class="cat-icon">🗂️</div>
+    <div class="cat-label">Tax & Compliance</div>
+    <div class="cat-line"></div>
+  </div>
+  <div class="checklist">
+
+    <div class="item-card" onclick="toggleItem(this)">
+      <div class="checkbox">
+        <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="item-content">
+        <div class="item-top">
+          <span class="item-num">01</span>
+          <span class="item-title">Tax Return 2024</span>
+        </div>
+        <div class="item-req">Please provide a copy of your FY 2024 tax return (full filing, all schedules).</div>
+      </div>
+
+    </div>
+
+    <div class="item-card" onclick="toggleItem(this)">
+      <div class="checkbox">
+        <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="item-content">
+        <div class="item-top">
+          <span class="item-num">09</span>
+          <span class="item-title">Payroll Reports</span>
+        </div>
+        <div class="item-req">Please provide payroll reports from January 2025 through March 2026.</div>
+        <div class="item-remark">⚠️ W2s, Form 940, and Form 941 for FY 2025 are specifically required.</div>
+      </div>
+      
+    </div>
+
+  </div>
+
+  <!-- BANK -->
+  <div class="cat-header">
+    <div class="cat-icon">🏦</div>
+    <div class="cat-label">Bank & Credit Card Statements</div>
+    <div class="cat-line"></div>
+  </div>
+  <div class="checklist">
+
+    <div class="item-card" onclick="toggleItem(this)">
+      <div class="checkbox">
+        <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="item-content">
+        <div class="item-top">
+          <span class="item-num">02</span>
+          <span class="item-title">RBFCU Basic Business Checking #9685</span>
+        </div>
+        <div class="item-req">Bank statements required from January 2025 through March 2026.</div>
+      </div>
+      
+    </div>
+
+    <div class="item-card" onclick="toggleItem(this)">
+      <div class="checkbox">
+        <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="item-content">
+        <div class="item-top">
+          <span class="item-num">03</span>
+          <span class="item-title">RBFCU Preferred Business Checking #9699</span>
+        </div>
+        <div class="item-req">Bank statements required from January 2025 through March 2026.</div>
+      </div>
+      
+    </div>
+
+    <div class="item-card" onclick="toggleItem(this)">
+      <div class="checkbox">
+        <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="item-content">
+        <div class="item-top">
+          <span class="item-num">05</span>
+          <span class="item-title">RBFCU CC S. SIVILS — Card #8355</span>
+        </div>
+        <div class="item-req">Credit card statements required from January 2025 through March 2026.</div>
+        <div class="item-remark">⚠️ This card is not connected to QBO — reconciliation must be done manually from statements.</div>
+      </div>
+      
+    </div>
+
+  </div>
+
+  <!-- CASH -->
+  <div class="cat-header">
+    <div class="cat-icon">💵</div>
+    <div class="cat-label">Cash & Other Assets</div>
+    <div class="cat-line"></div>
+  </div>
+  <div class="checklist">
+
+    <div class="item-card" onclick="toggleItem(this)">
+      <div class="checkbox">
+        <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="item-content">
+        <div class="item-top">
+          <span class="item-num">04</span>
+          <span class="item-title">Cash on Hand — Metal Buys</span>
+        </div>
+        <div class="item-req">If a cash log or sheet is maintained for metal buy transactions, please provide it.</div>
+      </div>
+      
+    </div>
+
+  </div>
+
+  <!-- LOANS -->
+  <div class="cat-header">
+    <div class="cat-icon">🚗</div>
+    <div class="cat-label">Vehicle Loans</div>
+    <div class="cat-line"></div>
+  </div>
+  <div class="checklist">
+
+    <div class="item-card" onclick="toggleItem(this)">
+      <div class="checkbox">
+        <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="item-content">
+        <div class="item-top">
+          <span class="item-num">06</span>
+          <span class="item-title">Auto Loan — 2018 GMC</span>
+        </div>
+        <div class="item-req">Loan document and monthly statements from January 2025 through March 2026.</div>
+        <div class="item-remark">⚠️ Account shows a negative balance — this is because the loan has not been set up in QBO.</div>
+      </div>
+      
+    </div>
+
+    <div class="item-card" onclick="toggleItem(this)">
+      <div class="checkbox">
+        <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="item-content">
+        <div class="item-top">
+          <span class="item-num">07</span>
+          <span class="item-title">Auto Loan — 2019 RAM 2500</span>
+        </div>
+        <div class="item-req">Loan document and monthly statements from January 2025 through March 2026.</div>
+        <div class="item-remark">⚠️ Account shows a negative balance — this is because the loan has not been set up in QBO.</div>
+      </div>
+      
+    </div>
+
+    <div class="item-card" onclick="toggleItem(this)">
+      <div class="checkbox">
+        <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="item-content">
+        <div class="item-top">
+          <span class="item-num">08</span>
+          <span class="item-title">Auto Loan — 2021 RAM 3500</span>
+        </div>
+        <div class="item-req">Loan document and monthly statements from January 2025 through March 2026.</div>
+        <div class="item-remark">⚠️ Account shows a negative balance — this is because the loan has not been set up in QBO.</div>
+      </div>
+      
+    </div>
+
+  </div>
+
+  <!-- NOTE -->
+  <div class="note-card">
+    <strong>How to Submit:</strong> Please email all documents directly to <strong>accounting@turnkeycfo.com</strong>. Attach files as <strong>Excel spreadsheets (.xlsx) whenever possible</strong> — if Excel is not available, PDF is also accepted. Bank and credit card statements can typically be exported in either format directly from your online banking portal. Loan documents can be the original agreement or your lender's welcome letter showing the loan amount and terms.<br><br>
+    Once received, our team will confirm and begin processing each item. Questions? Reply to that same email and we'll walk you through it.
+  </div>
+
+  <div class="footer" style="margin-top: 40px;">
+    Prepared by <strong>TurnkeyCFO</strong> · turnkeycfo.com · Confidential — For Client Use Only
+  </div>
+
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  const TOTAL = 9;
+
+  function toggleItem(card) {
+    card.classList.toggle('completed');
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const done = document.querySelectorAll('.item-card.completed').length;
+    const remaining = TOTAL - done;
+    const pct = Math.round((done / TOTAL) * 100);
+
+    document.getElementById('complete-count').textContent = done;
+  
